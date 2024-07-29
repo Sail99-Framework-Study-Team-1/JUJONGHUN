@@ -6,4 +6,5 @@ import study.board.domain.entity.Board;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
+    List<Board> findAllByOrderByCreatedAtDesc();
 }

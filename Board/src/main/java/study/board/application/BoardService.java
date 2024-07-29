@@ -26,7 +26,7 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<BoardResponseDto> readAll(){
-        return boardRepository.findAll().stream()
+        return boardRepository.findAllByOrderByCreatedAtDesc().stream()
             .map(BoardResponseDto::from)
             .toList();
     }
