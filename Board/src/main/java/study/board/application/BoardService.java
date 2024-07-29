@@ -19,18 +19,9 @@ public class BoardService {
 
 
     @Transactional
-    public Long publishBoard(BoardRequestDto requestDto){
+    public BoardResponseDto publishBoard(BoardRequestDto requestDto){
         Board save = boardRepository.save(createBoard(requestDto));
-        return save.getId();
-    }
-
-    private Board createBoard(BoardRequestDto requestDto) {
-        return Board.builder()
-           .title(requestDto.title())
-           .userName(requestDto.userName())
-           .password(passwordEncoder.encode(requestDto.password()))
-           .content(requestDto.content())
-           .build();
+        return BoardResponseDto.from(save);
     }
 
     @Transactional(readOnly = true)
@@ -41,4 +32,13 @@ public class BoardService {
     }
 
 
+
+    private Board createBoard(BoardRequestDto requestDto) {
+        return Board.builder()
+            .title(requestDto.title())
+            .userName(requestDto.userName())
+            .password(passwordEncoder.encode(requestDto.password()))
+            .content(requestDto.content())
+            .build();
+    }
 }

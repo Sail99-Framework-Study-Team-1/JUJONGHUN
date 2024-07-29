@@ -24,7 +24,7 @@ public class BoardController {
 
 
     @PostMapping("/board")
-    public ResponseEntity<ApiResponse<Long>> publishBoard(
+    public ResponseEntity<ApiResponse<BoardResponseDto>> publishBoard(
         @RequestBody @Valid BoardRequestDto requestDto){
         return ApiResponse.createResponse(true, boardService.publishBoard(requestDto),
             "게시글 등록 완료", HttpStatus.CREATED);
