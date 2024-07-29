@@ -21,7 +21,7 @@ public class Board extends BaseEntity{
 
     private String title;
 
-    private String userId;
+    private String userName;
 
     private String password;
 
@@ -34,7 +34,7 @@ public class Board extends BaseEntity{
     @Builder
     public Board(String title, String userName, String password, String content) {
         this.title = title;
-        this.userId = userName;
+        this.userName = userName;
         this.password = password;
         this.content = content;
     }
