@@ -1,5 +1,5 @@
 package study.board.infrastructure;
 
-public class example {
+public class RedisConfig {
 
 }
