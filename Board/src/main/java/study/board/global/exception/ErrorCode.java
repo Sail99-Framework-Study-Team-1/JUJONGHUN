@@ -7,7 +7,7 @@ public enum ErrorCode {
 
     BAD_REQUEST("요청에 오류가 있습니다.", LogType.ERROR, 400, "E001"),
     NOT_FOUND("해당 요청을 찾을 수 없습니다.", LogType.ERROR, 404, "E002"),
-
+    ACCESS_DENIED("권한이 없습니다.",LogType.ERROR ,403 , "E003"),
     // 유저 공통 에러코드 (예상?)
     USER_IS_NOT_EXIST("사용자가 존재 하지 않습니다.", LogType.ERROR, 500, "E100"),
     PASSWORDS_DO_NOT_MATCH("비밀번호가 일치 하지 않습니다.", LogType.ERROR, 500, "E101"),
