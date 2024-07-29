@@ -21,14 +21,15 @@ public class BoardService {
 
     @Transactional
     public Long publishBoard(BoardRequestDto requestDto){
-        Board save = boardRepository.save(mapper.map(requestDto,Board.class));
+        Board save = boardRepository.save(Board.of(requestDto));
         return save.getId();
     }
 
     @Transactional(readOnly = true)
     public List<BoardResponseDto> readAll(){
-        boardRepository.findByIsActiveIsTrue();
-        return null;
+        return boardRepository.findAll().stream()
+            .map(BoardResponseDto::from)
+            .toList();
     }
 
 

@@ -9,11 +9,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import study.board.presentation.dto.BoardRequestDto;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@SQLDelete(sql = "UPDATE board SET isActive = false WHERE id = ?")
+@SQLRestriction("is_active = true")
 public class Board extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,13 +43,13 @@ public class Board extends BaseEntity{
         this.content = content;
     }
 
-    // 템플릿 메서드 패턴
     public static Board of(BoardRequestDto requestDto){
         return Board.builder()
-            .userName(requestDto.userName())
-            .title(requestDto.title())
-            .content(requestDto.content())
-            .password(requestDto.password())
-            .build();
+               .title(requestDto.title())
+               .userName(requestDto.userName())
+               .password(requestDto.password())
+               .content(requestDto.content())
+               .build();
     }
+
 }
