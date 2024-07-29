@@ -16,7 +16,7 @@ public class BoardService {
 
     @Transactional
     public Long publishBoard(BoardRequestDto requestDto){
-        Board save = boardRepository.save(Board.of(requestDto));
+        Board save = boardRepository.save(BoardRequestDto.of(requestDto));
         return save.getId();
     }
 

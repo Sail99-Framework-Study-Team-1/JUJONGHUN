@@ -1,8 +1,8 @@
 package study.board.presentation.dto;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.validation.constraints.NotBlank;
+import study.board.domain.entity.Board;
 
 public record BoardRequestDto(
     @NotBlank
@@ -18,5 +18,12 @@ public record BoardRequestDto(
     String content
 
 ) {
-
+    public static Board of(BoardRequestDto requestDto){
+        return Board.builder()
+            .title(requestDto.title())
+            .userName(requestDto.userName())
+            .password(requestDto.password())
+            .content(requestDto.content())
+            .build();
+    }
 }

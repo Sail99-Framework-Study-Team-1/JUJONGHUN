@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import study.board.presentation.dto.BoardRequestDto;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -41,15 +40,6 @@ public class Board extends BaseEntity{
         this.userName = userName;
         this.password = password;
         this.content = content;
-    }
-
-    public static Board of(BoardRequestDto requestDto){
-        return Board.builder()
-               .title(requestDto.title())
-               .userName(requestDto.userName())
-               .password(requestDto.password())
-               .content(requestDto.content())
-               .build();
     }
 
 }

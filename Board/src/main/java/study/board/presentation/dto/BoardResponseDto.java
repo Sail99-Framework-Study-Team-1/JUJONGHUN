@@ -12,7 +12,8 @@ public record BoardResponseDto(
     LocalDateTime updatedAt
 
 ) {
-    public static BoardResponseDto from(Board board){
+
+    public static BoardResponseDto from(Board board) {
         return new BoardResponseDto(
             board.getId(),
             board.getTitle(),
