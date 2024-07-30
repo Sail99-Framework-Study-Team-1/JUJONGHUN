@@ -44,9 +44,9 @@
 
 # 발제
 
-## 1. jdk14+ Record Class
+- 1. jdk14+ Record Class
 
-## 2. 응답 템플릿 `ResponseEntity` vs `Custom ApiResponse` vs `ResponseEntity<ApiResponse>`
+- 2. 응답 템플릿 `ResponseEntity` vs `Custom ApiResponse` vs `ResponseEntity<ApiResponse>`
 
-## 3. Spring Security 6.1++ (함수형)
+- 3. Spring Security 6.1++ (함수형)
 
