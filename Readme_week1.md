@@ -2,8 +2,7 @@
 
 ## 1. Use-Case Diagram
 
-- [Use-Case Diagram](![image](https://github.com/user-attachments/assets/18981082-8938-4506-99fd-235d0bf48e9a)
-)
+- [Use-Case Diagram](![image](https://github.com/user-attachments/assets/18981082-8938-4506-99fd-235d0bf48e9a))
 
 ## 2. 프로젝트 초기 세팅
 
