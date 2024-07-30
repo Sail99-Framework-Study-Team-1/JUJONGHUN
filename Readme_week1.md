@@ -27,11 +27,16 @@
 - ![Entity 설계 이미지](https://github.com/user-attachments/assets/a690f6e1-d308-40df-9b5a-d47ad2358b21)
 - Soft-delete를 통해 데이터를 물리적으로 삭제하지 않고 비활성화.(isActive)
 
-## 4. 과제 진행
+## 4. Spring Security 기초 세팅
 
-### 4.1 게시글 등록 API
+- 게시물 패스워드 암호화 `BCryptPasswordEncoder` bean 등록.
+- board api 접근 권한 해제
 
-### 4.2 게시글 전체조회 API (비활성화 제외)
+## 5. 과제 진행
+
+### 5.1 게시글 등록 API
+
+### 5.2 게시글 전체조회 API (비활성화 제외)
 
 - 비활성화된 게시글은 제외하고 조회.
 
@@ -43,5 +48,5 @@
 
 ## 2. 응답 템플릿 ResponseEntity vs Custom ApiResponse vs ResponseEntity<ApiResponse>
 
-## 3. Dto <-> Entity 변환 구현부는 어디에?
+## 3. Spring Security 6.1++ (함수형)
 
