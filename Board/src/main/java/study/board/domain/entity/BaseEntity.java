@@ -19,7 +19,6 @@ public abstract class BaseEntity /*implements Persistable<String> */ {
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)
-    @NotNull
     private LocalDateTime createdAt;
 
     @LastModifiedDate
