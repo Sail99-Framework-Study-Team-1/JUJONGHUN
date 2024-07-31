@@ -11,18 +11,20 @@ import study.board.domain.entity.Board;
 import study.board.domain.repo.BoardRepository;
 
 @DataJpaTest
-public class BoardRepositoryTest {
+class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
 
     @Test
-    public void BoardRepository널체크(){
+    @DisplayName("레포지토리 널체크")
+    void boardRepositoryNullCheck(){
         assertThat(boardRepository).isNotNull();
     }
 
     @Test
-    public void 게시글등록(){
+    @DisplayName("게시글 등록")
+    void publishBoard(){
         //given
         final Board board = Board.builder()
             .title("Test Title")
@@ -35,16 +37,16 @@ public class BoardRepositoryTest {
         final Board result = boardRepository.save(board);
 
         //then
-        assertThat(result).isNotNull();
-        assertThat(result.getTitle()).isEqualTo("Test Title");
-        assertThat(result.getPassword()).isEqualTo("1234");
-        assertThat(result.getContent()).isEqualTo("Test content");
-        assertThat(result.getUserName()).isEqualTo("jjh");
+        assertThat(result)
+            .isNotNull()
+            .extracting(Board::getTitle, Board::getPassword, Board::getContent, Board::getUserName)
+            .containsExactly("Test Title", "1234", "Test content", "jjh");
 
     }
 
     @Test
-    public void 게시글전체조회(){
+    @DisplayName("게시글 전체 조회")
+    void readAllBoards(){
         //given
         final Board board = Board.builder()
             .title("Test Title")
@@ -59,9 +61,9 @@ public class BoardRepositoryTest {
 
         //then
         assertThat(boards).hasSize(1);
-        assertThat(boards.iterator().next().getTitle()).isEqualTo("Test Title");
-        assertThat(boards.iterator().next().getPassword()).isEqualTo("1234");
-        assertThat(boards.iterator().next().getContent()).isEqualTo("Test content");
-        assertThat(boards.iterator().next().getUserName()).isEqualTo("jjh");
+        Board firstBoard = boards.iterator().next();
+        assertThat(firstBoard)
+            .extracting(Board::getTitle, Board::getPassword, Board::getContent, Board::getUserName)
+            .containsExactly("Test Title", "1234", "Test content", "jjh");
     }
 }
