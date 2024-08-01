@@ -40,13 +40,9 @@
 
 - 비활성화된 게시글은 제외하고 조회.
 
+### 6. 단위테스트, 통합테스트 코드 구현
+
+- 연속된 assertThat -> assertChaining 방식으로 변경 (가독성↑ 유지보수↑ 에러핸들링↑)
 ---
 
-# 발제
-
-- 1. jdk14+ Record Class
-
-- 2. 응답 템플릿 `ResponseEntity` vs `Custom ApiResponse` vs `ResponseEntity<ApiResponse>`
-
-- 3. Spring Security 6.1++ (함수형)
 
