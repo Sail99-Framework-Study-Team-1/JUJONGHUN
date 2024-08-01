@@ -11,6 +11,7 @@ import study.board.domain.entity.Board;
 import study.board.domain.repo.BoardRepository;
 
 @DataJpaTest
+@DisplayName("게시판 레포지토리 계층 단위테스트")
 class BoardRepositoryTest {
 
     @Autowired
@@ -18,13 +19,13 @@ class BoardRepositoryTest {
 
     @Test
     @DisplayName("레포지토리 널체크")
-    void boardRepositoryNullCheck(){
+    void board_repository_null_check(){
         assertThat(boardRepository).isNotNull();
     }
 
     @Test
     @DisplayName("게시글 등록")
-    void publishBoard(){
+    void publish_board(){
         //given
         final Board board = Board.builder()
             .title("Test Title")
@@ -46,7 +47,7 @@ class BoardRepositoryTest {
 
     @Test
     @DisplayName("게시글 전체 조회")
-    void readAllBoards(){
+    void read_all_boards(){
         //given
         final Board board = Board.builder()
             .title("Test Title")

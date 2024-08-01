@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +22,7 @@ import study.board.presentation.dto.BoardRequestDto;
 import study.board.presentation.dto.BoardResponseDto;
 
 @ExtendWith(MockitoExtension.class)
-@ExtendWith(MockitoExtension.class)
+@DisplayName("게시판 서비스 계층 단위테스트")
 class BoardServiceTest {
 
     @InjectMocks
@@ -48,7 +49,8 @@ class BoardServiceTest {
     }
 
     @Test
-    void 게시글_쓰기() {
+    @DisplayName("게시글 등록")
+    void publish_board() {
         // given
         when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
         when(boardRepository.save(any(Board.class))).thenReturn(board);
@@ -67,7 +69,8 @@ class BoardServiceTest {
     }
 
     @Test
-    void 게시글_전체조회() {
+    @DisplayName("게시글 전체 조회")
+    void read_all_boards() {
         // given
         when(boardRepository.findAllByOrderByCreatedAtDesc()).thenReturn(List.of(board));
 

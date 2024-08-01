@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -28,7 +29,8 @@ import study.board.presentation.dto.BoardRequestDto;
 import study.board.presentation.dto.BoardResponseDto;
 
 @WebMvcTest(BoardController.class)
-public class BoardControllerTest {
+@DisplayName("게시판 컨트롤러 계층 단위테스트")
+class BoardControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -43,15 +45,16 @@ public class BoardControllerTest {
     private BoardResponseDto boardResponseDto;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         boardRequestDto = new BoardRequestDto("Test Title", "jjh", "1234", "Test content");
         boardResponseDto = new BoardResponseDto("Test Title", "jjh", "Test content",
             LocalDateTime.now());
     }
 
     @Test
-    @WithMockUser  // 인증된 사용자로 테스트 수행
-    public void 게시글등록() throws Exception {
+    @WithMockUser// 인증된 사용자로 테스트 수행
+    @DisplayName("게시글 등록")
+    void publish_board() throws Exception {
         when(boardService.publishBoard(any(BoardRequestDto.class))).thenReturn(boardResponseDto);
 
         mockMvc.perform(post("/board")
@@ -67,7 +70,8 @@ public class BoardControllerTest {
 
     @Test
     @WithMockUser  // 인증된 사용자로 테스트 수행
-    public void 게시글전체조회() throws Exception {
+    @DisplayName("게시글 전체 조회")
+    void read_all_boards() throws Exception {
         when(boardService.readAll()).thenReturn(List.of(boardResponseDto));
 
         mockMvc.perform(get("/board")
