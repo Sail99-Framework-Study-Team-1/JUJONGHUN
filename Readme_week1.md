@@ -28,7 +28,7 @@
 - Soft-delete를 통해 데이터를 물리적으로 삭제하지 않고 비활성화.(isActive)
 
 ## 4. Spring Security 기초 세팅
-
+- 함수형 인터페이스로 작성(Spring Security 6↑)
 - 게시물 패스워드 암호화 `BCryptPasswordEncoder` bean 등록.
 - board api 접근 권한 해제
 
