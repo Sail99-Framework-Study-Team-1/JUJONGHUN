@@ -26,7 +26,7 @@ class BoardRepositoryTest {
     @Test
     @DisplayName("게시글 등록")
     void publish_board(){
-        //given
+        // given
         final Board board = Board.builder()
             .title("Test Title")
             .password("1234")
@@ -34,10 +34,10 @@ class BoardRepositoryTest {
             .userName("jjh")
             .build();
 
-        //when
+        // when
         final Board result = boardRepository.save(board);
 
-        //then
+        // then
         assertThat(result)
             .isNotNull()
             .extracting(Board::getTitle, Board::getPassword, Board::getContent, Board::getUserName)
@@ -48,7 +48,7 @@ class BoardRepositoryTest {
     @Test
     @DisplayName("게시글 전체 조회")
     void read_all_boards(){
-        //given
+        // given
         final Board board = Board.builder()
             .title("Test Title")
             .password("1234")
@@ -57,10 +57,10 @@ class BoardRepositoryTest {
             .build();
         boardRepository.save(board);
 
-        //when
+        // when
         final List<Board> boards = boardRepository.findAllByOrderByCreatedAtDesc();
 
-        //then
+        // then
         assertThat(boards).hasSize(1);
         Board firstBoard = boards.iterator().next();
         assertThat(firstBoard)

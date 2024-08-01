@@ -52,7 +52,7 @@ class BoardControllerTest {
     }
 
     @Test
-    @WithMockUser// 인증된 사용자로 테스트 수행
+    @WithMockUser
     @DisplayName("게시글 등록")
     void publish_board() throws Exception {
         when(boardService.publishBoard(any(BoardRequestDto.class))).thenReturn(boardResponseDto);
@@ -69,7 +69,7 @@ class BoardControllerTest {
     }
 
     @Test
-    @WithMockUser  // 인증된 사용자로 테스트 수행
+    @WithMockUser
     @DisplayName("게시글 전체 조회")
     void read_all_boards() throws Exception {
         when(boardService.readAll()).thenReturn(List.of(boardResponseDto));
