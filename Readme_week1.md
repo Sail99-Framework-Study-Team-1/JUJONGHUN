@@ -47,6 +47,9 @@
 
 ### 7. 통합테스트 코드 구현
 - @SpringBootTest 사용
+
+
 ---
+![image](https://github.com/user-attachments/assets/e482f36a-e47a-451f-a75f-3df2175c67d6)
 
 
