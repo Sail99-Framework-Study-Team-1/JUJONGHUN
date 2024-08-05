@@ -53,11 +53,11 @@ public class BoardService {
     }
 
     @Transactional
-    public String delete(Long id){
+    public Long delete(Long id){
         Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
            .orElseThrow(() -> new BoardException(ErrorCode.BOARD_IS_NOT_EXIST));
         board.delete();
-        return "게시글 삭제 성공";
+        return board.getId();
     }
 
 
