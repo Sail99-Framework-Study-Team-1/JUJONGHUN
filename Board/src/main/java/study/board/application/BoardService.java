@@ -47,10 +47,17 @@ public class BoardService {
         if(!passwordEncoder.matches(requestDto.password(),board.getPassword())){
             throw new BoardException(ErrorCode.PASSWORDS_DO_NOT_MATCH);
         }
-        // JPA 더티체킹
         board.update(requestDto.title(), requestDto.content());
 
         return BoardResponseDto.from(board);
+    }
+
+    @Transactional
+    public String delete(Long id){
+        Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
+           .orElseThrow(() -> new BoardException(ErrorCode.BOARD_IS_NOT_EXIST));
+        board.delete();
+        return "게시글 삭제 성공";
     }
 
 

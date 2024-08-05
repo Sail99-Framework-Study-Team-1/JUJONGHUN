@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
@@ -17,6 +18,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Getter
 @SQLDelete(sql = "UPDATE board SET isActive = false WHERE id = ?")
 @SQLRestriction("is_active = true")
+@DynamicUpdate
 public class Board extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +47,9 @@ public class Board extends BaseEntity{
     public void update(String title, String content) {
         this.title=title;
         this.content=content;
+    }
+
+    public void delete() {
+        this.isActive=false;
     }
 }
