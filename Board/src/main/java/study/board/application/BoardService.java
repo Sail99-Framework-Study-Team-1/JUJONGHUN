@@ -40,6 +40,19 @@ public class BoardService {
         return BoardResponseDto.from(board);
     }
 
+    @Transactional
+    public BoardResponseDto update(Long id, BoardRequestDto requestDto){
+        Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
+            .orElseThrow(() -> new BoardException(ErrorCode.BOARD_IS_NOT_EXIST));
+        if(!passwordEncoder.matches(requestDto.password(),board.getPassword())){
+            throw new BoardException(ErrorCode.PASSWORDS_DO_NOT_MATCH);
+        }
+        // JPA 더티체킹
+        board.update(requestDto.title(), requestDto.content());
+
+        return BoardResponseDto.from(board);
+    }
+
 
     private Board createBoard(BoardRequestDto requestDto) {
         return Board.builder()

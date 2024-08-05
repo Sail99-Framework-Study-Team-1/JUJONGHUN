@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,5 +44,11 @@ public class BoardController {
             "게시글 조회 성공", HttpStatus.OK);
     }
 
+    @PutMapping("/{boardId}")
+    public ResponseEntity<ApiResponse<BoardResponseDto>> update(
+        @PathVariable Long boardId, @RequestBody @Valid BoardRequestDto requestDto) {
+        return ApiResponse.createResponse(true, boardService.update(boardId, requestDto),
+            "게시글 수정 성공", HttpStatus.OK);
+    }
 
 }
