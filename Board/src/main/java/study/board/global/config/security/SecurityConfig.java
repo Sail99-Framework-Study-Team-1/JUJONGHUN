@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**")
                 .permitAll()  // Allow OPTIONS for all patterns
                 .requestMatchers(
-                    "/board"
+                    "/board/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
