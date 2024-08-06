@@ -15,10 +15,10 @@
     -> 이슈 참조 https://jyami.tistory.com/124
 - 게시글 전체 조회 계층별 단위테스트, 통합테스트 리팩토링
 - 게시글 수정, 삭제 단위테스트, 통합테스트 추가
-![image](https://github.com/user-attachments/assets/526d051a-0503-471e-963e-c3cec8c4e2bb)
-![image](https://github.com/user-attachments/assets/2885c0b4-59e7-45ee-b10b-3b4bef88338d)
-![image](https://github.com/user-attachments/assets/5183ef54-ff1c-4869-a854-c4ce6c58db09)
-![image](https://github.com/user-attachments/assets/fae5043c-bc3c-4c62-afe6-07d1a43567b4)
+-![image](https://github.com/user-attachments/assets/526d051a-0503-471e-963e-c3cec8c4e2bb)
+-![image](https://github.com/user-attachments/assets/2885c0b4-59e7-45ee-b10b-3b4bef88338d)
+-![image](https://github.com/user-attachments/assets/5183ef54-ff1c-4869-a854-c4ce6c58db09)
+-![image](https://github.com/user-attachments/assets/fae5043c-bc3c-4c62-afe6-07d1a43567b4)
 
 
 ## 3. 추가 구현
