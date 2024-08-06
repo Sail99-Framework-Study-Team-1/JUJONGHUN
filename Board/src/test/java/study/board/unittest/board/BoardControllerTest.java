@@ -158,10 +158,10 @@ class BoardControllerTest {
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
-            .andExpect(status().isOk())
+            .andExpect(status().isNoContent())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(content().json(objectMapper.writeValueAsString(
-                ApiResponse.createResponse(true, boardId, "게시글 삭제 성공", HttpStatus.OK).getBody())));
+                ApiResponse.createResponse(true, boardId, "게시글 삭제 성공", HttpStatus.NO_CONTENT).getBody())));
     }
 
 
