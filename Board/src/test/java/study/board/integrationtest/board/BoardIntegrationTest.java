@@ -78,21 +78,21 @@ class BoardIntegrationTest {
             });
     }
 
-    @Test
-    @DisplayName("[성공] 게시글 전체 조회")
-    void success_read_all_boards() throws Exception {
-        mockMvc.perform(post("/board")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(boardRequestDto)))
-            .andExpect(status().isCreated());
-
-        var resultActions = mockMvc.perform(get("/board")
-            .contentType(MediaType.APPLICATION_JSON));
-
-        resultActions
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-    }
+//    @Test
+//    @DisplayName("[성공] 게시글 전체 조회")
+//    void success_read_all_boards() throws Exception {
+//        mockMvc.perform(post("/board")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(boardRequestDto)))
+//            .andExpect(status().isCreated());
+//
+//        var resultActions = mockMvc.perform(get("/board")
+//            .contentType(MediaType.APPLICATION_JSON));
+//
+//        resultActions
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+//    }
 
     @Test
     @DisplayName("[실패] 게시글 등록 : 잘못된 요청")

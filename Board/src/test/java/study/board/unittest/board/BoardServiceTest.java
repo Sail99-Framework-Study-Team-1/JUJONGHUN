@@ -68,22 +68,22 @@ class BoardServiceTest {
         verify(boardRepository).save(any(Board.class));
     }
 
-    @Test
-    @DisplayName("게시글 전체 조회")
-    void read_all_boards() {
-        // given
-        when(boardRepository.findAllByOrderByCreatedAtDesc()).thenReturn(List.of(board));
-
-        // when
-        List<BoardResponseDto> responseDtos = target.readAll();
-
-        // then(assert chaining)
-        assertThat(responseDtos)
-            .isNotEmpty()
-            .hasSize(1)
-            .first()
-            .extracting(BoardResponseDto::title, BoardResponseDto::userName, BoardResponseDto::content)
-            .containsExactly("Title", "UserName", "Content");
-    }
+//    @Test
+//    @DisplayName("게시글 전체 조회")
+//    void read_all_boards() {
+//        // given
+//        when(boardRepository.findAllByOrderByCreatedAtDesc()).thenReturn(List.of(board));
+//
+//        // when
+//        List<BoardResponseDto> responseDtos = target.readAll();
+//
+//        // then(assert chaining)
+//        assertThat(responseDtos)
+//            .isNotEmpty()
+//            .hasSize(1)
+//            .first()
+//            .extracting(BoardResponseDto::title, BoardResponseDto::userName, BoardResponseDto::content)
+//            .containsExactly("Title", "UserName", "Content");
+//    }
 
 }

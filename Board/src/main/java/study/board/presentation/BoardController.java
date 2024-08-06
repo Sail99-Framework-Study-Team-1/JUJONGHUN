@@ -3,10 +3,14 @@ package study.board.presentation;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +21,7 @@ import study.board.application.BoardService;
 import study.board.global.ApiResponse;
 import study.board.presentation.dto.BoardRequestDto;
 import study.board.presentation.dto.BoardResponseDto;
+import study.board.presentation.dto.BoardSearchCondition;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,8 +39,11 @@ public class BoardController {
     }
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse<List<BoardResponseDto>>> readAll() {
-        return ApiResponse.createResponse(true, boardService.readAll(),
+    public ResponseEntity<ApiResponse<Page<BoardResponseDto>>> readAll(
+        @ModelAttribute BoardSearchCondition condition,
+        @PageableDefault(size = 5) Pageable pageable
+    ) {
+        return ApiResponse.createResponse(true, boardService.readAll(condition,pageable),
             "게시글 전체 조회 성공", HttpStatus.OK);
     }
 

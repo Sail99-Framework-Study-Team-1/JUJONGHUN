@@ -1,7 +1,8 @@
 package study.board.application;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import study.board.global.exception.BoardException;
 import study.board.global.exception.ErrorCode;
 import study.board.presentation.dto.BoardRequestDto;
 import study.board.presentation.dto.BoardResponseDto;
+import study.board.presentation.dto.BoardSearchCondition;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +29,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public List<BoardResponseDto> readAll() {
-        return boardRepository.findAllByOrderByCreatedAtDesc().stream()
-            .map(BoardResponseDto::from)
-            .toList();
+    public Page<BoardResponseDto> readAll(BoardSearchCondition condition, Pageable pageable) {
+        return boardRepository.findBoardPage(condition, pageable);
     }
 
     @Transactional(readOnly = true)
@@ -41,10 +41,10 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardResponseDto update(Long id, BoardRequestDto requestDto){
+    public BoardResponseDto update(Long id, BoardRequestDto requestDto) {
         Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
             .orElseThrow(() -> new BoardException(ErrorCode.BOARD_IS_NOT_EXIST));
-        if(!passwordEncoder.matches(requestDto.password(),board.getPassword())){
+        if (!passwordEncoder.matches(requestDto.password(), board.getPassword())) {
             throw new BoardException(ErrorCode.PASSWORDS_DO_NOT_MATCH);
         }
         board.update(requestDto.title(), requestDto.content());
@@ -53,9 +53,9 @@ public class BoardService {
     }
 
     @Transactional
-    public Long delete(Long id){
+    public Long delete(Long id) {
         Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
-           .orElseThrow(() -> new BoardException(ErrorCode.BOARD_IS_NOT_EXIST));
+            .orElseThrow(() -> new BoardException(ErrorCode.BOARD_IS_NOT_EXIST));
         board.delete();
         return board.getId();
     }

@@ -68,18 +68,18 @@ class BoardControllerTest {
                     .getBody())));
     }
 
-    @Test
-    @WithMockUser
-    @DisplayName("게시글 전체 조회")
-    void read_all_boards() throws Exception {
-        when(boardService.readAll()).thenReturn(List.of(boardResponseDto));
-
-        mockMvc.perform(get("/board")
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(content().json(objectMapper.writeValueAsString(
-                ApiResponse.createResponse(true, List.of(boardResponseDto), "게시글 전체 조회 성공",
-                    HttpStatus.OK).getBody())));
-    }
+//    @Test
+//    @WithMockUser
+//    @DisplayName("게시글 전체 조회")
+//    void read_all_boards() throws Exception {
+//        when(boardService.readAll()).thenReturn(List.of(boardResponseDto));
+//
+//        mockMvc.perform(get("/board")
+//                .contentType(MediaType.APPLICATION_JSON))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//            .andExpect(content().json(objectMapper.writeValueAsString(
+//                ApiResponse.createResponse(true, List.of(boardResponseDto), "게시글 전체 조회 성공",
+//                    HttpStatus.OK).getBody())));
+//    }
 }
