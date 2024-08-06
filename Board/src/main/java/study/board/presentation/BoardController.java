@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import study.board.application.BoardService;
 import study.board.global.ApiResponse;
+import study.board.presentation.dto.BoardDeleteRequestDto;
 import study.board.presentation.dto.BoardRequestDto;
 import study.board.presentation.dto.BoardResponseDto;
 import study.board.presentation.dto.BoardSearchCondition;
@@ -61,9 +62,10 @@ public class BoardController {
     }
 
     @DeleteMapping("/{boardId}")
-    public ResponseEntity<ApiResponse<Long>> delete(@PathVariable Long boardId) {
-        return ApiResponse.createResponse(true, boardService.delete(boardId),
-            "게시글 삭제 성공", HttpStatus.OK);
+    public ResponseEntity<ApiResponse<Long>> delete(@PathVariable Long boardId, @RequestBody
+        BoardDeleteRequestDto requestDto) {
+        return ApiResponse.createResponse(true, boardService.delete(boardId, requestDto),
+            "게시글 삭제 성공", HttpStatus.NO_CONTENT);
     }
 
 }

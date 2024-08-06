@@ -2,6 +2,7 @@ package study.board.unittest.board;
 
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -18,15 +19,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import study.board.application.BoardService;
+import study.board.domain.enums.SortType;
 import study.board.global.ApiResponse;
 import study.board.presentation.BoardController;
+import study.board.presentation.dto.BoardDeleteRequestDto;
 import study.board.presentation.dto.BoardRequestDto;
 import study.board.presentation.dto.BoardResponseDto;
+import study.board.presentation.dto.BoardSearchCondition;
 
 @WebMvcTest(BoardController.class)
 @DisplayName("게시판 컨트롤러 계층 단위테스트")
@@ -68,18 +76,93 @@ class BoardControllerTest {
                     .getBody())));
     }
 
-//    @Test
-//    @WithMockUser
-//    @DisplayName("게시글 전체 조회")
-//    void read_all_boards() throws Exception {
-//        when(boardService.readAll()).thenReturn(List.of(boardResponseDto));
-//
-//        mockMvc.perform(get("/board")
-//                .contentType(MediaType.APPLICATION_JSON))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//            .andExpect(content().json(objectMapper.writeValueAsString(
-//                ApiResponse.createResponse(true, List.of(boardResponseDto), "게시글 전체 조회 성공",
-//                    HttpStatus.OK).getBody())));
-//    }
+    @Test
+    @WithMockUser
+    @DisplayName("게시글 전체 조회")
+    void read_all_boards() throws Exception {
+        // 반환할 값 설정
+        boardResponseDto = new BoardResponseDto("Test Title", "jjh", "Test content",
+            LocalDateTime.now());
+        when(boardService.readAll(any(BoardSearchCondition.class), any(Pageable.class)))
+            .thenReturn(new PageImpl<>(List.of(boardResponseDto)));
+
+        ResultActions resultActions = mockMvc.perform(get("/board")
+            .contentType(MediaType.APPLICATION_JSON)
+            .param("title", "") // 검색 조건 암거나 추가
+            .param("userName", "")
+            .param("content", "")
+            .param("sortType", SortType.ASC.toString())
+            .param("page", "0")
+            .param("size", "5"));
+
+        resultActions
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(objectMapper.writeValueAsString(
+                ApiResponse.createResponse(true, new PageImpl<>(List.of(boardResponseDto)),
+                    "게시글 전체 조회 성공", HttpStatus.OK).getBody()
+            )));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("게시글 단건 조회")
+    void readOne() throws Exception {
+        // given
+        Long boardId = 1L;
+        BoardResponseDto responseDto = new BoardResponseDto("Test Title", "jjh", "Test content", LocalDateTime.now());
+        given(boardService.readOne(boardId)).willReturn(responseDto);
+
+        // when & then
+        mockMvc.perform(MockMvcRequestBuilders.get("/board/{boardId}", boardId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(objectMapper.writeValueAsString(
+                ApiResponse.createResponse(true, responseDto, "게시글 조회 성공", HttpStatus.OK).getBody())));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("게시글 수정")
+    void update() throws Exception {
+        // given
+        Long boardId = 1L;
+        BoardRequestDto requestDto = new BoardRequestDto("Updated Title", "jjh", "1234", "Updated content");
+        BoardResponseDto responseDto = new BoardResponseDto("Updated Title", "jjh", "Updated content", LocalDateTime.now());
+        given(boardService.update(boardId, requestDto)).willReturn(responseDto);
+
+        // when & then
+        mockMvc.perform(MockMvcRequestBuilders.put("/board/{boardId}", boardId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(requestDto)))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(objectMapper.writeValueAsString(
+                ApiResponse.createResponse(true, responseDto, "게시글 수정 성공", HttpStatus.OK).getBody())));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("게시글 삭제")
+    void delete() throws Exception {
+        // given
+        Long boardId = 1L;
+        BoardDeleteRequestDto requestDto = new BoardDeleteRequestDto("1234");
+        given(boardService.delete(boardId, requestDto)).willReturn(boardId);
+
+        // when & then
+        mockMvc.perform(MockMvcRequestBuilders.delete("/board/{boardId}", boardId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(requestDto)))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(objectMapper.writeValueAsString(
+                ApiResponse.createResponse(true, boardId, "게시글 삭제 성공", HttpStatus.OK).getBody())));
+    }
+
+
 }

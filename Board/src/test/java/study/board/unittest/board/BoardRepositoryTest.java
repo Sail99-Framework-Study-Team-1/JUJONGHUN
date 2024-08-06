@@ -7,10 +7,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import study.board.domain.entity.Board;
 import study.board.domain.repo.BoardRepository;
+import study.board.unittest.TestConfig;
 
 @DataJpaTest
+@Import(TestConfig.class)
 @DisplayName("게시판 레포지토리 계층 단위테스트")
 class BoardRepositoryTest {
 
@@ -47,7 +50,7 @@ class BoardRepositoryTest {
 
     @Test
     @DisplayName("게시글 전체 조회")
-    void read_all_boards(){
+    void read_all_boards() {
         // given
         final Board board = Board.builder()
             .title("Test Title")
@@ -62,9 +65,10 @@ class BoardRepositoryTest {
 
         // then
         assertThat(boards).hasSize(1);
-        Board firstBoard = boards.iterator().next();
+        Board firstBoard = boards.get(0); // .iterator().next() 대신 .get(0) 사용
         assertThat(firstBoard)
             .extracting(Board::getTitle, Board::getPassword, Board::getContent, Board::getUserName)
             .containsExactly("Test Title", "1234", "Test content", "jjh");
     }
+
 }

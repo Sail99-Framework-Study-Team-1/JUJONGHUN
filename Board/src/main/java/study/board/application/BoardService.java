@@ -10,6 +10,7 @@ import study.board.domain.entity.Board;
 import study.board.domain.repo.BoardRepository;
 import study.board.global.exception.BoardException;
 import study.board.global.exception.ErrorCode;
+import study.board.presentation.dto.BoardDeleteRequestDto;
 import study.board.presentation.dto.BoardRequestDto;
 import study.board.presentation.dto.BoardResponseDto;
 import study.board.presentation.dto.BoardSearchCondition;
@@ -53,9 +54,12 @@ public class BoardService {
     }
 
     @Transactional
-    public Long delete(Long id) {
+    public Long delete(Long id, BoardDeleteRequestDto requestDto) {
         Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
             .orElseThrow(() -> new BoardException(ErrorCode.BOARD_IS_NOT_EXIST));
+        if (!passwordEncoder.matches(requestDto.password(), board.getPassword())) {
+            throw new BoardException(ErrorCode.PASSWORDS_DO_NOT_MATCH);
+        }
         board.delete();
         return board.getId();
     }
