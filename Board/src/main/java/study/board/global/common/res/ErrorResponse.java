@@ -1,8 +1,8 @@
-package study.board.global;
+package study.board.global.common.res;
 
 
 import lombok.Getter;
-import study.board.global.exception.ErrorCode;
+import study.board.global.error.ErrorCode;
 
 @Getter
 public class ErrorResponse<T> {

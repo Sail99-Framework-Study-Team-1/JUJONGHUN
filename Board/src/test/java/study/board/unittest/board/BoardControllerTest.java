@@ -27,14 +27,14 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import study.board.application.BoardService;
-import study.board.domain.enums.SortType;
-import study.board.global.ApiResponse;
-import study.board.presentation.BoardController;
-import study.board.presentation.dto.BoardDeleteRequestDto;
-import study.board.presentation.dto.BoardRequestDto;
-import study.board.presentation.dto.BoardResponseDto;
-import study.board.presentation.dto.BoardSearchCondition;
+import study.board.domain.board.application.BoardService;
+import study.board.global.enums.SortType;
+import study.board.global.common.res.ApiResponse;
+import study.board.domain.board.api.BoardController;
+import study.board.domain.board.dto.req.BoardDeleteRequestDto;
+import study.board.domain.board.dto.req.BoardRequestDto;
+import study.board.domain.board.dto.res.BoardResponseDto;
+import study.board.domain.board.dto.req.BoardSearchCondition;
 
 @WebMvcTest(BoardController.class)
 @DisplayName("게시판 컨트롤러 계층 단위테스트")

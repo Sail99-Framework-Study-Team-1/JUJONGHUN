@@ -22,11 +22,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import study.board.application.BoardService;
-import study.board.domain.entity.Board;
-import study.board.domain.repo.BoardRepository;
-import study.board.presentation.dto.BoardDeleteRequestDto;
-import study.board.presentation.dto.BoardRequestDto;
+import study.board.domain.board.application.BoardService;
+import study.board.domain.board.domain.Board;
+import study.board.domain.board.repo.BoardRepository;
+import study.board.domain.board.dto.req.BoardDeleteRequestDto;
+import study.board.domain.board.dto.req.BoardRequestDto;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc

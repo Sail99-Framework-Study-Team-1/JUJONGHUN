@@ -1,4 +1,4 @@
-package study.board.global;
+package study.board.global.common.res;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

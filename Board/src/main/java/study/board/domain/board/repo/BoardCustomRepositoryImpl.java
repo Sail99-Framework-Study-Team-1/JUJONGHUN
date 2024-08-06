@@ -1,4 +1,4 @@
-package study.board.domain.repo;
+package study.board.domain.board.repo;
 
 import static study.board.domain.entity.QBoard.board;
 
@@ -12,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
-import study.board.domain.enums.SortType;
-import study.board.presentation.dto.BoardResponseDto;
-import study.board.presentation.dto.BoardSearchCondition;
+import study.board.domain.board.dto.res.BoardResponseDto;
+import study.board.domain.board.dto.req.BoardSearchCondition;
+import study.board.global.enums.SortType;
 
 @RequiredArgsConstructor
 public class BoardCustomRepositoryImpl implements BoardCustomRepository {

@@ -1,7 +1,7 @@
-package study.board.presentation.dto;
+package study.board.domain.board.dto.res;
 
 import java.time.LocalDateTime;
-import study.board.domain.entity.Board;
+import study.board.domain.board.domain.Board;
 
 public record BoardResponseDto(
     String title,

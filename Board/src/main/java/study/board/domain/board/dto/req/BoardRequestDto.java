@@ -1,4 +1,4 @@
-package study.board.presentation.dto;
+package study.board.domain.board.dto.req;
 
 
 import jakarta.validation.constraints.NotBlank;

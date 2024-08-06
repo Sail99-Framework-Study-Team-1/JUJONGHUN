@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import study.board.domain.entity.Board;
-import study.board.domain.repo.BoardRepository;
+import study.board.domain.board.domain.Board;
+import study.board.domain.board.repo.BoardRepository;
 import study.board.unittest.TestConfig;
 
 @DataJpaTest

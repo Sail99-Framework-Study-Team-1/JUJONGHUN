@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-import study.board.global.exception.ErrorCode;
+import study.board.global.error.ErrorCode;
 
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {

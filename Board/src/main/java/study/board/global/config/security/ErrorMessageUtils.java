@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.springframework.http.MediaType;
-import study.board.global.ErrorResponse;
-import study.board.global.exception.ErrorCode;
+import study.board.global.common.res.ErrorResponse;
+import study.board.global.error.ErrorCode;
 
 public class ErrorMessageUtils {
 

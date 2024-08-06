@@ -1,4 +1,4 @@
-package study.board.global;
+package study.board.global.error;
 
 import static java.text.NumberFormat.Field.SUFFIX;
 
@@ -9,15 +9,15 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import study.board.global.exception.ErrorCode;
-import study.board.global.exception.BoardException;
+import study.board.global.common.res.ErrorResponse;
+import study.board.global.error.exception.GlobalException;
 
 @RestControllerAdvice
 @Slf4j
 public class ControllerAdvice {
 
-    @ExceptionHandler({BoardException.class})
-    protected ResponseEntity<ErrorResponse<Void>> handleServerException(BoardException e) {
+    @ExceptionHandler({GlobalException.class})
+    protected ResponseEntity<ErrorResponse<Void>> handleServerException(GlobalException e) {
         errorLog("Server Exception occurred", e);
         return ResponseEntity.status(e.getErrorCode().getStatus())
             .body(ErrorResponse.failure(e.getErrorCode()));
@@ -45,7 +45,7 @@ public class ControllerAdvice {
     }
 
     private void errorLog(String errorMessage, Throwable throwable) {
-        if (throwable instanceof BoardException serverException) {
+        if (throwable instanceof GlobalException serverException) {
             ErrorCode errorCode = serverException.getErrorCode();
             if (errorCode.getLogType() == ErrorCode.LogType.WARN) {
                 log.warn("{}" + SUFFIX, errorMessage, errorCode.getMessage());

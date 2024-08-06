@@ -1,6 +1,6 @@
-package study.board.presentation.dto;
+package study.board.domain.board.dto.req;
 
-import study.board.domain.enums.SortType;
+import study.board.global.enums.SortType;
 
 public record BoardSearchCondition (
     String title,

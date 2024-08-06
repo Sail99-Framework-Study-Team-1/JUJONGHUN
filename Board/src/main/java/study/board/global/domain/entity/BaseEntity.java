@@ -1,4 +1,4 @@
-package study.board.domain.entity;
+package study.board.global.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

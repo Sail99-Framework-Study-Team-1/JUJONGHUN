@@ -1,4 +1,4 @@
-package study.board.domain.enums;
+package study.board.global.enums;
 
 public enum SortType {
     ASC,DESC

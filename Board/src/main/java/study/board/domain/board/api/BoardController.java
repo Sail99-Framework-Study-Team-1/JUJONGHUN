@@ -1,7 +1,6 @@
-package study.board.presentation;
+package study.board.domain.board.api;
 
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,12 +16,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import study.board.application.BoardService;
-import study.board.global.ApiResponse;
-import study.board.presentation.dto.BoardDeleteRequestDto;
-import study.board.presentation.dto.BoardRequestDto;
-import study.board.presentation.dto.BoardResponseDto;
-import study.board.presentation.dto.BoardSearchCondition;
+import study.board.domain.board.dto.req.BoardDeleteRequestDto;
+import study.board.domain.board.dto.req.BoardRequestDto;
+import study.board.domain.board.dto.res.BoardResponseDto;
+import study.board.domain.board.dto.req.BoardSearchCondition;
+import study.board.domain.board.application.BoardService;
+import study.board.global.common.res.ApiResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,7 +62,7 @@ public class BoardController {
 
     @DeleteMapping("/{boardId}")
     public ResponseEntity<ApiResponse<Long>> delete(@PathVariable Long boardId, @RequestBody
-        BoardDeleteRequestDto requestDto) {
+    BoardDeleteRequestDto requestDto) {
         return ApiResponse.createResponse(true, boardService.delete(boardId, requestDto),
             "게시글 삭제 성공", HttpStatus.NO_CONTENT);
     }

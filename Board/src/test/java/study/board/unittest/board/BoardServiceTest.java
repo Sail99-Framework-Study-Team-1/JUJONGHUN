@@ -18,21 +18,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import study.board.application.BoardService;
-import study.board.domain.entity.Board;
-import study.board.domain.repo.BoardRepository;
-import study.board.global.exception.BoardException;
-import study.board.presentation.dto.BoardDeleteRequestDto;
-import study.board.presentation.dto.BoardRequestDto;
-import study.board.presentation.dto.BoardResponseDto;
-import study.board.presentation.dto.BoardSearchCondition;
+import study.board.domain.board.application.BoardService;
+import study.board.domain.board.domain.Board;
+import study.board.domain.board.repo.BoardRepository;
+import study.board.global.error.exception.GlobalException;
+import study.board.domain.board.dto.req.BoardDeleteRequestDto;
+import study.board.domain.board.dto.req.BoardRequestDto;
+import study.board.domain.board.dto.res.BoardResponseDto;
+import study.board.domain.board.dto.req.BoardSearchCondition;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("게시판 서비스 계층 단위테스트")
@@ -190,7 +189,7 @@ class BoardServiceTest {
             .thenReturn(false);
 
         // when & then
-        assertThrows(BoardException.class, () -> target.update(1L, requestDto));
+        assertThrows(GlobalException.class, () -> target.update(1L, requestDto));
     }
 
     @Test
@@ -204,6 +203,6 @@ class BoardServiceTest {
             .thenReturn(false);
 
         // when & then
-        assertThrows(BoardException.class, () -> target.delete(1L, deleteRequestDto));
+        assertThrows(GlobalException.class, () -> target.delete(1L, deleteRequestDto));
     }
 }
