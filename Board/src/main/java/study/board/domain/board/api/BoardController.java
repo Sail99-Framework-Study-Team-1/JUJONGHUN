@@ -21,6 +21,7 @@ import study.board.domain.board.dto.req.BoardRequestDto;
 import study.board.domain.board.dto.res.BoardResponseDto;
 import study.board.domain.board.dto.req.BoardSearchCondition;
 import study.board.domain.board.application.BoardService;
+import study.board.domain.board.dto.res.BoardDeleteResponseDto;
 import study.board.global.common.res.ApiResponse;
 
 @RestController
@@ -61,10 +62,10 @@ public class BoardController {
     }
 
     @DeleteMapping("/{boardId}")
-    public ResponseEntity<ApiResponse<Long>> delete(@PathVariable Long boardId, @RequestBody
+    public ResponseEntity<ApiResponse<BoardDeleteResponseDto>> delete(@PathVariable Long boardId, @RequestBody
     BoardDeleteRequestDto requestDto) {
         return ApiResponse.createResponse(true, boardService.delete(boardId, requestDto),
-            "게시글 삭제 성공", HttpStatus.NO_CONTENT);
+            "게시글 삭제 성공", HttpStatus.OK);
     }
 
 }

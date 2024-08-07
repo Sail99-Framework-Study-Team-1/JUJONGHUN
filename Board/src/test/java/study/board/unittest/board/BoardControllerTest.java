@@ -28,6 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import study.board.domain.board.application.BoardService;
+import study.board.domain.board.dto.res.BoardDeleteResponseDto;
 import study.board.global.enums.SortType;
 import study.board.global.common.res.ApiResponse;
 import study.board.domain.board.api.BoardController;
@@ -151,17 +152,18 @@ class BoardControllerTest {
         // given
         Long boardId = 1L;
         BoardDeleteRequestDto requestDto = new BoardDeleteRequestDto("1234");
-        given(boardService.delete(boardId, requestDto)).willReturn(boardId);
+        BoardDeleteResponseDto responseDto = new BoardDeleteResponseDto(boardId);
+        given(boardService.delete(boardId, requestDto)).willReturn(responseDto);
 
         // when & then
         mockMvc.perform(MockMvcRequestBuilders.delete("/board/{boardId}", boardId)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
-            .andExpect(status().isNoContent())
+            .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(content().json(objectMapper.writeValueAsString(
-                ApiResponse.createResponse(true, boardId, "게시글 삭제 성공", HttpStatus.NO_CONTENT).getBody())));
+                ApiResponse.createResponse(true, responseDto, "게시글 삭제 성공", HttpStatus.OK).getBody())));
     }
 
 

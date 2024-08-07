@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.board.domain.board.dto.res.BoardDeleteResponseDto;
 import study.board.global.error.exception.GlobalException;
 import study.board.domain.board.domain.Board;
 import study.board.domain.board.dto.req.BoardDeleteRequestDto;
@@ -36,14 +37,14 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public BoardResponseDto readOne(Long id) {
-        Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
+        Board board = boardRepository.findById(id)
             .orElseThrow(() -> new GlobalException(ErrorCode.BOARD_IS_NOT_EXIST));
         return BoardResponseDto.from(board);
     }
 
     @Transactional
     public BoardResponseDto update(Long id, BoardRequestDto requestDto) {
-        Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
+        Board board = boardRepository.findById(id)
             .orElseThrow(() -> new GlobalException(ErrorCode.BOARD_IS_NOT_EXIST));
         if (!passwordEncoder.matches(requestDto.password(), board.getPassword())) {
             throw new GlobalException(ErrorCode.PASSWORDS_DO_NOT_MATCH);
@@ -54,14 +55,14 @@ public class BoardService {
     }
 
     @Transactional
-    public Long delete(Long id, BoardDeleteRequestDto requestDto) {
-        Board board = boardRepository.findByIdAndIsActiveIsTrue(id)
+    public BoardDeleteResponseDto delete(Long id, BoardDeleteRequestDto requestDto) {
+        Board board = boardRepository.findById(id)
             .orElseThrow(() -> new GlobalException(ErrorCode.BOARD_IS_NOT_EXIST));
         if (!passwordEncoder.matches(requestDto.password(), board.getPassword())) {
             throw new GlobalException(ErrorCode.PASSWORDS_DO_NOT_MATCH);
         }
         board.delete();
-        return board.getId();
+        return new BoardDeleteResponseDto(board.getId());
     }
 
 

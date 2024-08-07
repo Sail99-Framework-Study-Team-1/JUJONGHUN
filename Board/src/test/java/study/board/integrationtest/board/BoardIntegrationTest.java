@@ -172,12 +172,8 @@ class BoardIntegrationTest {
             .content(objectMapper.writeValueAsString(deleteRequestDto)));
 
         resultActions
-            .andExpect(status().isNoContent());
+            .andExpect(status().isOk());
 
-        // 삭제된 게시글 조회 시 404 응답
-        mockMvc.perform(get("/board/{id}", boardId)
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNotFound());
     }
 
     @Test

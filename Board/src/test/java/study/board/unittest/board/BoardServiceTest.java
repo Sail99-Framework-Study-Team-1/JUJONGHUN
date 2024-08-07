@@ -27,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import study.board.domain.board.application.BoardService;
 import study.board.domain.board.domain.Board;
 import study.board.domain.board.repo.BoardRepository;
+import study.board.domain.board.dto.res.BoardDeleteResponseDto;
 import study.board.global.error.exception.GlobalException;
 import study.board.domain.board.dto.req.BoardDeleteRequestDto;
 import study.board.domain.board.dto.req.BoardRequestDto;
@@ -133,7 +134,7 @@ class BoardServiceTest {
     @DisplayName("게시글 단건 조회")
     void readOne() {
         // given
-        when(boardRepository.findByIdAndIsActiveIsTrue(anyLong()))
+        when(boardRepository.findById(anyLong()))
             .thenReturn(Optional.of(board));
 
         // when
@@ -148,7 +149,7 @@ class BoardServiceTest {
     @DisplayName("게시글 수정")
     void update() {
         // given
-        when(boardRepository.findByIdAndIsActiveIsTrue(anyLong()))
+        when(boardRepository.findById(anyLong()))
             .thenReturn(Optional.of(board));
         when(passwordEncoder.matches(any(String.class), any(String.class)))
             .thenReturn(true);
@@ -166,24 +167,24 @@ class BoardServiceTest {
     void delete() {
         // given
         BoardDeleteRequestDto deleteRequestDto = new BoardDeleteRequestDto("1234");
-        when(boardRepository.findByIdAndIsActiveIsTrue(anyLong()))
+        when(boardRepository.findById(anyLong()))
             .thenReturn(Optional.of(board));
         when(passwordEncoder.matches(any(String.class), any(String.class)))
             .thenReturn(true);
         doReturn(1L).when(board).getId();
 
         // when
-        Long result = target.delete(1L, deleteRequestDto);
+        BoardDeleteResponseDto result = target.delete(1L, deleteRequestDto);
 
         // then
-        assertThat(result).isEqualTo(1L);
+        assertThat(result.id()).isEqualTo(1L);
     }
 
     @Test
     @DisplayName("게시글 수정 비밀번호 불일치")
     void updatePasswordMismatch() {
         // given
-        when(boardRepository.findByIdAndIsActiveIsTrue(anyLong()))
+        when(boardRepository.findById(anyLong()))
             .thenReturn(Optional.of(board));
         when(passwordEncoder.matches(any(String.class), any(String.class)))
             .thenReturn(false);
@@ -197,7 +198,7 @@ class BoardServiceTest {
     void deletePasswordMismatch() {
         // given
         BoardDeleteRequestDto deleteRequestDto = new BoardDeleteRequestDto("wrong_password");
-        when(boardRepository.findByIdAndIsActiveIsTrue(anyLong()))
+        when(boardRepository.findById(anyLong()))
             .thenReturn(Optional.of(board));
         when(passwordEncoder.matches(any(String.class), any(String.class)))
             .thenReturn(false);

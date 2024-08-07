@@ -1,6 +1,7 @@
 package study.board.domain.board.repo;
 
-import static study.board.domain.entity.QBoard.board;
+
+import static study.board.domain.board.domain.QBoard.board;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
@@ -31,7 +32,6 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
                     ))
             .from(board)
             .where(
-                isActive(),
                 titleContains(condition.title()),
                 userNameContains(condition.userName()),
                 contentContains(condition.content())
@@ -45,7 +45,6 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository {
             .select(board.count())
             .from(board)
             .where(
-                isActive(),
                 titleContains(condition.title()),
                 userNameContains(condition.userName()),
                 contentContains(condition.content())
