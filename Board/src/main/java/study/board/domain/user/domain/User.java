@@ -1,7 +1,5 @@
 package study.board.domain.user.domain;
 
-import static study.board.domain.user.domain.QUser.user;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 import study.board.global.domain.entity.BaseEntity;
 
 @Entity
