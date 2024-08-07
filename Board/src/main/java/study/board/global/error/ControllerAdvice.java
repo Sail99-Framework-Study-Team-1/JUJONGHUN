@@ -18,7 +18,7 @@ public class ControllerAdvice {
 
     @ExceptionHandler({GlobalException.class})
     protected ResponseEntity<ErrorResponse<Void>> handleServerException(GlobalException e) {
-        errorLog("Server Exception occurred", e);
+        // errorLog("Server Exception occurred ", e);
         return ResponseEntity.status(e.getErrorCode().getStatus())
             .body(ErrorResponse.failure(e.getErrorCode()));
     }

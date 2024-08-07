@@ -6,6 +6,5 @@ import study.board.domain.user.domain.User;
 
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    boolean findByUserName(String userName);
-
+    boolean existsUserByUserName(String userName);
 }

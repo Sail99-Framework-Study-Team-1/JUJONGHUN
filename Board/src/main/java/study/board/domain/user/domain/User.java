@@ -21,7 +21,6 @@ import study.board.global.domain.entity.BaseEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @SQLDelete(sql = "UPDATE users SET isActive = false WHERE id = ?")
-@SQLRestriction("is_active = true")
 @DynamicUpdate
 @Table(name = "users")
 public class User extends BaseEntity {
@@ -38,11 +37,13 @@ public class User extends BaseEntity {
     private Boolean isActive = true;
 
     @Builder
-    public User(String userName, String password, Boolean isActive) {
+    public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
-        this.isActive = isActive;
     }
 
+    public void delete() {
+        this.isActive=false;
+    }
 }
 

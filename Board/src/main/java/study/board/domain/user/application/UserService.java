@@ -20,13 +20,14 @@ public class UserService {
 
     @Transactional
     public UserRegisterResponseDto register(UserRegisterRequestDto requestDto){
-        boolean isExist = userRepository.findByUserName(
-            requestDto.userName());
-        if(isExist){
+        if (userRepository.existsUserByUserName(requestDto.userName())) {
             throw new GlobalException(ErrorCode.USER_IS_ALREADY_EXIST);
         }
+
         User user = createUser(requestDto);
-        return new UserRegisterResponseDto(userRepository.save(user).getId());
+        User savedUser = userRepository.save(user);
+
+        return new UserRegisterResponseDto(savedUser.getId());
     }
 
 
