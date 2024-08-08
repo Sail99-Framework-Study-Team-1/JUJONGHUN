@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.board.domain.user.domain.User;
+import study.board.domain.user.dto.req.UserLoginRequestDto;
 import study.board.domain.user.dto.req.UserRegisterRequestDto;
 import study.board.domain.user.dto.res.UserRegisterResponseDto;
 import study.board.domain.user.repo.UserRepository;
@@ -41,4 +42,7 @@ public class UserService {
             .build();
     }
 
+    public Void login(UserLoginRequestDto requestDto) {
+        return null;
+    }
 }

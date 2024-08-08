@@ -40,7 +40,8 @@ public class SecurityConfig {
                 .permitAll()  // Allow OPTIONS for all patterns
                 .requestMatchers(
                     "/board/**",
-                    "/user"
+                    "/user/signup",
+                    "/user/login"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
